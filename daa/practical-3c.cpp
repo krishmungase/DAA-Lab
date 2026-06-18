@@ -2,18 +2,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int knapsack(int i, int W, vector<int>& value, vector<int>& weight, vector<vector<int>>& dp) {
-    if (i == 0 || W == 0)
+int knapsack(int n, int W, vector<int>& value, vector<int>& weight, vector<vector<int>>& dp) {
+    if (n == 0 || W == 0)
         return 0;
-    if (dp[i][W] != -1)
-        return dp[i][W];
+    if (dp[n][W] != -1)
+        return dp[n][W];
 
-    int notTake = knapsack(i - 1, W, value, weight, dp);  // skip item i
+    int notTake = knapsack(n - 1, W, value, weight, dp);  // skip item n    
     int take = 0;
-    if (weight[i - 1] <= W)
-        take = value[i - 1] + knapsack(i - 1, W - weight[i - 1], value, weight, dp);
+    if (weight[n - 1] <= W)
+        take = value[n - 1] + knapsack(n - 1, W - weight[n - 1], value, weight, dp);
 
-    return dp[i][W] = max(take, notTake);
+    return dp[n][W] = max(take, notTake);
 }
 
 int main() {
