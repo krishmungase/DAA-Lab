@@ -8,7 +8,7 @@ int knapsack(int n, int W, vector<int>& value, vector<int>& weight, vector<vecto
     if (dp[n][W] != -1)
         return dp[n][W];
 
-    int notTake = knapsack(n - 1, W, value, weight, dp);  // skip item n    
+    int notTake = knapsack(n - 1, W, value, weight, dp);  // skip item n
     int take = 0;
     if (weight[n - 1] <= W)
         take = value[n - 1] + knapsack(n - 1, W - weight[n - 1], value, weight, dp);
