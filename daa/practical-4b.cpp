@@ -8,9 +8,9 @@ bool visited[10];
 int minCost = 100000;
 int bestPath[20], currPath[20];
 
-void tsp(int currCity, int count, int currCost) {
-    if (count == N && cost[currCity][0]) {
-        int total = currCost + cost[currCity][0];
+void tsp(int city, int count, int currCost) {
+    if (count == N && cost[city][0]) {
+        int total = currCost + cost[city][0];
         if (total < minCost) {
             minCost = total;
             for (int i = 0; i < N; i++)
@@ -20,9 +20,9 @@ void tsp(int currCity, int count, int currCost) {
         return;
     }
     for (int i = 0; i < N; i++) {
-        if (!visited[i] && cost[currCity][i]) {
-            int temp = currCost + cost[currCity][i];
-            if (temp < minCost) {          // bound: prune if already worse
+        if (!visited[i] && cost[city][i]) {
+            int temp = currCost + cost[city][i];
+            if (temp < minCost) {              // bound: prune
                 visited[i] = true;
                 currPath[count] = i;
                 tsp(i, count + 1, temp);
@@ -49,20 +49,6 @@ int main() {
     for (int i = 0; i <= N; i++)
         cout << bestPath[i] << " ";
 
-    cout << "\n\nCost Calculation:\n";
-    int total = 0;
-    for (int i = 0; i < N; i++) {
-        int from = bestPath[i], to = bestPath[i + 1];
-        cout << "Cost(" << from << " -> " << to << ") = " << cost[from][to] << endl;
-        total += cost[from][to];
-    }
-
-    cout << "\nTotal Cost = ";
-    for (int i = 0; i < N; i++) {
-        cout << cost[bestPath[i]][bestPath[i + 1]];
-        if (i < N - 1) cout << " + ";
-    }
-    cout << " = " << total << endl;
-
+    cout << "\nTotal Cost = " << minCost << endl;
     return 0;
 }
